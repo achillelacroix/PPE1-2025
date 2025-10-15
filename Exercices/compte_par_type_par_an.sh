@@ -1,14 +1,17 @@
 #!/usr/bin/bash
 
-TYPE=$1
+DATADIR=$1
+TYPE=$2
 
-if [ ! $# -eq 1 ]; then
-    echo "Vous devez donner 1 argument"
+
+if [ ! $# -eq 2 ]; then
+    echo "Vous devez donner 2 arguments"
     exit
+fi
 
 echo "Nombre d'annotations $TYPE en 2016 :"
-cat /home/al/Documents/M1/S1/Projet_de_programmation_encadré/Exercice1/ann/2016/*/* | grep $TYPE | wc -l
+bash compte_par_type.sh "$DATADIR" "$TYPE" 2016
 echo "Nombre d'annotations $TYPE en 2017 :"
-cat /home/al/Documents/M1/S1/Projet_de_programmation_encadré/Exercice1/ann/2017/*/* | grep $TYPE | wc -l
+bash compte_par_type.sh "$DATADIR" "$TYPE" 2017
 echo "Nombre d'annotations $TYPE en 2018 :"
-cat /home/al/Documents/M1/S1/Projet_de_programmation_encadré/Exercice1/ann/2018/*/* | grep $TYPE | wc -l
+bash compte_par_type.sh "$DATADIR" "$TYPE" 2018
