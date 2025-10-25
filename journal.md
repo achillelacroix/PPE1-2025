@@ -16,3 +16,11 @@ C'est chouette, j'avais pas grand chose à modifier, juste quelques petits trucs
 En premier lieu, le script vérifie que l'utilisateurice a bien fourni un argument.
 Ensuite, on assigne la valeur de cet argument à la variable FICHIER_URLS. On crée également 2 autres variables OK et NOK auxquelles on assigne la valeur 0.
 On arrive maintenant au coeur du programme, une boucle while qui lit les lignes de l'argument fourni par l'utilisateurice. On dirait que le script attend un fichier où chaque ligne correspondrait à une url. Il affiche cette ligne puis à l'aide d'une expression régulière il évalue si cette ligne commence "https://" ou "http://". Si c'est le cas, on ajoute 1 à OK, sinon on ajoute 1 à NOK. On répète jusqu'à être passé sur chaque ligne et on affiche le nombre d'urls valides et le nombre d'urls douteuses. Par contre, je ne suis pas certain de comprendre ce que fait l'avant dernière ligne "done < $FICHIER_URLS". J'ai réécrit le script et elle semble bien être importante puisque sans elle le programme semble bloqué sans afficher quoi que ce soit.
+
+## Cours du 22/10
+C'est bon j'ai la réponse à ma question sur "done < $FICHIER_URLS", c'est beaucoup plus clair.
+J'ai déjà un peu commencé le miniprojet, je capte la logique et je progresse bien.
+
+## Travail sur le miniprojet 23/10 - 25/10
+J'ai fait une première version dont chaque commande fonctionnait assez bien séparément mais quand elles sont exécutées séparément, étant donné que le script repose sur plusieurs curls par url, je me suis retrouvé avec des erreurs 429 assez systématiquement.
+J'ai donc du réfléchir à une autre version de mon script qui ne repose que sur un curl par url, ce que j'ai fini par réussir à faire malgré quelques difficultés. Je me suis notamment heurté au problème de cat qui surchargeait la mémoire allouée au script et qui en empêchait l'exécution normale. Je l'utilisais pour donner à d'autres commandes le résultat de mon curl stocké dans une variable, remplacer par un echo m'a permis de contourner le problème.

@@ -1,0 +1,10 @@
+Numero	Adresse	ReponseRequête	EncodageEnUTF8	NombreDeMots
+1	https://fr.wikipedia.org/wiki/Robot	200	OUI	13904
+2	https://fr.wikipedia.org/wiki/Robot_de_cuisine	200	OUI	4129
+3	https://fr.wikipedia.org/wiki/Bot_informatique	200	OUI	6555
+4	https://fr.wikipedia.org/wiki/Atlas_(robot)	200	OUI	4027
+5	https://roboty.magistry.fr		NON	0
+6	https://fr.wikipedia.org/wiki/Robot_(Leonard_de_Vinci)	404	OUI	2298
+7	https://fr.wiktionary.org/wiki/robot	200	OUI	17786
+8	https://fr.wikipedia.org/wiki/Protocole_d%27exclusion_des_robots	200	OUI	4238
+9	https://fr.wikipedia.org/wiki/Robotique	200	OUI	22051
