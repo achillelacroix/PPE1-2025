@@ -1,6 +1,6 @@
 #!/usr/bin/bash
 if [ $# -ne 2 ]; then
-    echo "Ce programme demande deux arguments"
+    echo "Ce programme demande deux arguments : 1 fichier d'entrée contenant des urls et 1 fichier sortie"
     exit
 fi
 
@@ -12,24 +12,25 @@ if [ ! -f "$FICHIER_URLS" ]; then
     exit
 fi
 
-CONTENU_PAGE=""
-NB_LIGNE=0
-REPONSE_REQUETE=""
-ENCODAGE_OU_PAS=""
-NB_MOTS=0
+NB_LIGNE=0 # on aurait pu mettre lineno
 
 echo -e "Numero\tAdresse\tReponseRequête\tEncodageEnUTF8\tNombreDeMots" > "$SORTIE"
 
 while read -r LINE ; do
     if [[ $LINE =~ ^https?:// ]]; then
 
-        CONTENU_PAGE=$(curl --silent -L -i "$LINE" )
-
         NB_LIGNE=$(expr $NB_LIGNE + 1)
 
-        REPONSE_REQUETE=$( echo "$CONTENU_PAGE" | head -n 1 | rev | cut -f2 -d " " | rev)
+        CODE_ET_ENCODAGE=$(curl -s -L -i -o "tmp.txt" -w "%{http_code}\n%{content_type}" "$LINE")
 
-        ENCODAGE=$( echo "$CONTENU_PAGE" | head -n 10 | grep charset | cut -d "=" -f 2)
+        CODE=$(echo "$CODE_ET_ENCODAGE" | head -n 1)
+
+        if [ $CODE -eq 0 ]; then
+            echo -e "$NB_LIGNE\t$LINE\tERREUR\tERREUR\tERREUR" >> "$SORTIE"
+            continue
+        fi
+
+        ENCODAGE=$(echo "$CODE_ET_ENCODAGE" | grep -E -o "charset=.*")
 
         if [[ "$ENCODAGE" =~ ('UTF-8'|'utf-8') ]]; then
             ENCODAGE_OU_PAS="OUI"
@@ -37,8 +38,8 @@ while read -r LINE ; do
             ENCODAGE_OU_PAS="NON"
         fi
 
-        NB_MOTS=$( echo "$CONTENU_PAGE" | sed '/<!DOCTYPE html>/,$!d' | wc -w)
+        NB_MOTS=$(cat "tmp.txt" | lynx -dump -stdin -nolist | wc -w)
 
-        echo -e "$NB_LIGNE\t$LINE\t$REPONSE_REQUETE\t$ENCODAGE_OU_PAS\t$NB_MOTS" >> "$SORTIE"
+        echo -e "$NB_LIGNE\t$LINE\t$CODE\t$ENCODAGE_OU_PAS\t$NB_MOTS" >> "$SORTIE"
 fi
 done  < "$FICHIER_URLS"
