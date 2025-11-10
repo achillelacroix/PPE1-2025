@@ -24,3 +24,6 @@ J'ai déjà un peu commencé le miniprojet, je capte la logique et je progresse 
 ## Travail sur le miniprojet 23/10 - 25/10
 J'ai fait une première version dont chaque commande fonctionnait assez bien séparément mais quand elles sont exécutées séparément, étant donné que le script repose sur plusieurs curls par url, je me suis retrouvé avec des erreurs 429 assez systématiquement.
 J'ai donc du réfléchir à une autre version de mon script qui ne repose que sur un curl par url, ce que j'ai fini par réussir à faire malgré quelques difficultés. Je me suis notamment heurté au problème de cat qui surchargeait la mémoire allouée au script et qui en empêchait l'exécution normale. Je l'utilisais pour donner à d'autres commandes le résultat de mon curl stocké dans une variable, remplacer par un echo m'a permis de contourner le problème.
+
+## Travail sur le miniprojet 2 5/11 - 10/11
+Globalement aucun soucis, j'ai corrigé mon script au niveau du wordcount parce que j'avais pas utilisé lynx pour ne compter que les mots de la page. J'ai réussi à transformer ma sortie pour que ce soit du html trop de difficultés.

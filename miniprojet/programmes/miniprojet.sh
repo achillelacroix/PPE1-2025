@@ -14,7 +14,11 @@ fi
 
 NB_LIGNE=0 # on aurait pu mettre lineno
 
-echo -e "Numero\tAdresse\tReponseRequête\tEncodageEnUTF8\tNombreDeMots" > "$SORTIE"
+echo -e "<html>" > "$SORTIE"
+echo -e "\t<head>Ceci est une entête</head>" >> "$SORTIE"
+echo -e "\t<body>" >> "$SORTIE"
+echo -e "\t\t<table>" >> "$SORTIE"
+echo -e "\t<tr><th>Numéro</th><th>Adresse</th><th>CodeHttp</th><th>UTF8?</th><th>NbDeMots</th></tr>" >> "$SORTIE"
 
 while read -r LINE ; do
     if [[ $LINE =~ ^https?:// ]]; then
@@ -26,7 +30,7 @@ while read -r LINE ; do
         CODE=$(echo "$CODE_ET_ENCODAGE" | head -n 1)
 
         if [ $CODE -eq 0 ]; then
-            echo -e "$NB_LIGNE\t$LINE\tERREUR\tERREUR\tERREUR" >> "$SORTIE"
+            echo -e "\t<tr>\n<td>$NB_LIGNE</td>\t<td>$LINE</td>\t<td>ERREUR</td>\t<td>ERREUR</td>\t<td>ERREUR</td>\n</tr>" >> "$SORTIE"
             continue
         fi
 
@@ -40,6 +44,12 @@ while read -r LINE ; do
 
         NB_MOTS=$(cat "tmp.txt" | lynx -dump -stdin -nolist | wc -w)
 
-        echo -e "$NB_LIGNE\t$LINE\t$CODE\t$ENCODAGE_OU_PAS\t$NB_MOTS" >> "$SORTIE"
+        rm "tmp.txt"
+
+        echo -e "\t<tr>\n<td>$NB_LIGNE</td>\t<td>$LINE</td>\t<td>$CODE</td>\t<td>$ENCODAGE_OU_PAS</td>\t<td>$NB_MOTS</td>\n</tr>" >> "$SORTIE"
 fi
 done  < "$FICHIER_URLS"
+
+echo -e "\t\t</table>" >> "$SORTIE"
+echo -e "\t</body>" >> "$SORTIE"
+echo -e "</html>" >> "$SORTIE"
