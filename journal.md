@@ -27,3 +27,6 @@ J'ai donc du réfléchir à une autre version de mon script qui ne repose que su
 
 ## Travail sur le miniprojet 2 5/11 - 10/11
 Globalement aucun soucis, j'ai corrigé mon script au niveau du wordcount parce que j'avais pas utilisé lynx pour ne compter que les mots de la page. J'ai réussi à transformer ma sortie pour que ce soit du html trop de difficultés.
+
+## Travain sur le miniprojet 3 12/11 - 13/11
+Pas de gros problème, j'ai eu un léger souci lié au fonctionnement de echo qui interprétait mal des guillemets que j'ai du ajouter à mon script pour mettre le tableau au style Bulma. J'ai finalement réglé le problème en échappant toutes les guillemets avec le backslash.

@@ -14,20 +14,24 @@ fi
 
 NB_LIGNE=0 # on aurait pu mettre lineno
 
-echo -e "
+echo -e "\
 <html>
     <head>
-        <meta charset="UTF-8">
+        <link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css\"> </link>
+        <meta charset=\"UTF-8\">
     </head>
     <body>
-        <table>
-            <tr>
-                <th>Numéro</th>
-                <th>Adresse</th>
-                <th>CodeHttp</th>
-                <th>UTF8?</th>
-                <th>NbDeMots</th>
-            </tr>" > "$SORTIE"
+        <table class=\"table is-hoverable\">
+            <thead>
+                <tr>
+                    <th>Numéro</th>
+                    <th>Adresse</th>
+                    <th>CodeHttp</th>
+                    <th>UTF8?</th>
+                    <th>NbDeMots</th>
+                </tr>
+            </thead>
+            <tbody>" > "$SORTIE"
 
 while read -r LINE ; do
     if [[ $LINE =~ ^https?:// ]]; then
@@ -39,14 +43,14 @@ while read -r LINE ; do
         CODE=$(echo "$CODE_ET_ENCODAGE" | head -n 1)
 
         if [ $CODE -eq 0 ]; then
-            echo -e "
-            <tr>
-                <td>$NB_LIGNE</td>
-                <td>$LINE</td>
-                <td>ERREUR</td>
-                <td>ERREUR</td>
-                <td>ERREUR</td>
-            </tr>" >> "$SORTIE"
+            echo -e "\
+                <tr class=\"is-warning\">
+                    <td>$NB_LIGNE</td>
+                    <td>$LINE</td>
+                    <td>ERREUR</td>
+                    <td>ERREUR</td>
+                    <td>ERREUR</td>
+                </tr>" >> "$SORTIE"
             continue
         fi
 
@@ -62,18 +66,19 @@ while read -r LINE ; do
 
         rm ".tmp.txt"
 
-        echo -e "
-            <tr>
-                <td>$NB_LIGNE</td>
-                <td>$LINE</td>
-                <td>$CODE</td>
-                <td>$ENCODAGE_OU_PAS</td>
-                <td>$NB_MOTS</td>
-            </tr>" >> "$SORTIE"
+        echo -e "\
+                <tr>
+                    <td>$NB_LIGNE</td>
+                    <td>$LINE</td>
+                    <td>$CODE</td>
+                    <td>$ENCODAGE_OU_PAS</td>
+                    <td>$NB_MOTS</td>
+                </tr>" >> "$SORTIE"
 fi
 done  < "$FICHIER_URLS"
 
-echo -e "
+echo -e "\
+            </tbody>
         </table>
     </body>
 </html>" >> "$SORTIE"
