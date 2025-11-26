@@ -30,3 +30,22 @@ Globalement aucun soucis, j'ai corrigé mon script au niveau du wordcount parce 
 
 ## Travain sur le miniprojet 3 12/11 - 13/11
 Pas de gros problème, j'ai eu un léger souci lié au fonctionnement de echo qui interprétait mal des guillemets que j'ai du ajouter à mon script pour mettre le tableau au style Bulma. J'ai finalement réglé le problème en échappant toutes les guillemets avec le backslash.
+
+## Exo sur la résolution de conflits git 19/11 - 20/11
+Aucun souci avec l'exercice, j'ai essayé de faire sans le diapo d'aide mais j'en ai eu besoin à cause d'un doute au niveau de git diff.
+
+## Exo regex avec grep et sed
+Repérage des moulins à vent
+    avec grep, isoler les lignes contenant les occurrences de moulins : cat pg16066.txt | grep moulins
+    avec sed, remplacer toutes les occurrences de “moulins à vent" par
+moulins-à-vent (en utilisant un argument ’s/.../.../’) : cat pg16066.txt | grep "moulins à vent" | sed 's/moulins à vent/moulins-à-vent/'
+
+Pseudo-lemmatisation de MANGER
+    avec grep, isoler les lignes contenant les occurrences du verbe "manger" quelque
+soit sa flexion. cat pg16066.txt | grep "mang" ou cat pg16066.txt | grep -E -o 'mang[a-zé]*'
+    avec sed, remplacer toutes ces occurrences par la forme MANGER (en utilisant
+un argument ’s/.../.../’) : cat pg16066.txt | grep -E -o 'mang[a-zé]\*' | sed 's/mang[a-zé]\*/MANGER/'
+    toujours avec sed, effectuer la même opération mais conserver l’information sur
+la flexion qu’on indiquera après MANGER, en la séparant d’un caractère +. par
+exemple, “mangeaient" doit devenir “MANGER+eaient" : cat pg16066.txt | grep -E -o 'mang[a-zé]\*' | sed -E 's/(mang)([a-zé]\*)/MANGER+\2/'
+
